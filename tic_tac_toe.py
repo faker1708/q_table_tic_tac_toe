@@ -319,7 +319,8 @@ class game():
             pygame.display.flip() #更新屏幕内容
             if( self.__terminate == 1):
                 # print(self.__record)
-                time.sleep(2)
+                # time.sleep(2)
                 # os.system('cls')
+                pass
 
         return 

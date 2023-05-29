@@ -15,13 +15,21 @@ class agent():
         for _ in range(self.__state_dimension):
             aql = list()
             for _ in range(self.__action_dimension):
-                q = random.gauss(0,0.1)
+                # q = random.gauss(0,0.1)
+                q = random.uniform(0.0, 1.0)
+                q = random.uniform(0.45, 0.55)
+                
+                # q = 0
+                # q = 1
                 aql.append(q)
             q_list.append(aql)
 
         self.__q_list = q_list
 
         return
+    
+    def get_ql(self):
+        return self.__q_list
 
     def take_action(self,perception,epsilon):
         # perception q表中，这里要输入一个自然数。用来取状态动作价值表。
@@ -35,6 +43,7 @@ class agent():
         else:
             explore = 1
         
+        saql = list()
         if(explore):
             action = random.randint(0,self.__action_dimension-1)
         else:
@@ -44,7 +53,7 @@ class agent():
 
 
 
-        return action
+        return action,saql
     
     def store(self,exp_list):
 
@@ -60,11 +69,11 @@ class agent():
 
             perception = exp[0] # 索引 ，自然数
             action = exp[1]
-            r = exp[2]
+            reward = exp[2]
 
             q = self.__q_list[perception][action]
 
-            q = (1-alpha)*q + alpha* r
+            q = (1-alpha)*q + alpha* reward
 
             self.__q_list[perception][action] = q
 
