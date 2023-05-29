@@ -48,17 +48,21 @@ class main_class():
 
         epl = list()
         epl.append(0)
-        epl.append(0)
-        epl.append(0)
+        epl.append(0.9)
+        epl.append(0.9)
 
 
-        learn_flag_list = [1,2]
-        # learn_flag_list = [1]
-        # learn_flag_list = [2]
+        learn_flag_list = [2]
+        # lazy_record= [0,1,2,0,0,0,0]
+        # lazy_record= [0,1,2,0,0,0,0]
+        # lazy_record= [0,4,8,2,6,0,0]
+        lazy_record= list()
 
-        for _,flag in enumerate(learn_flag_list):
-            epl[flag] = epsilon
 
+        # component_record = [1,4,7]
+        # component_record = [1,4]
+        # component_record = [1]
+        component_record = []
 
         result = [0,0,0]
 
@@ -69,6 +73,9 @@ class main_class():
 
         for i_ep in range(n_ep):
             [plate,flag] = self.game.reset()
+            # print(plate)
+            tg = 0
+            tg_2 = 0
             while(1):
                 
                 # print(plate)
@@ -77,8 +84,34 @@ class main_class():
                 agent = self.agent_list[flag]
 
 
-                action,bql = agent.take_action(ss,plate,epl[flag])
+                # if(mode == 'test' or mode == 'show'):
+                # if(flag not in learn_flag_list):
+                #         epl[flag] = 0 # 测试模式中，2阵营随机落子，期望1的胜率为100 %
+                action,saql = agent.take_action(ss,epl[flag])
+                # if(flag==2):
+                #     print(action)
+                # if(flag in learn_flag_list):
+                    # print('ss',ss,flag)
 
+                # if(i_ep <= 8):
+                if(1):
+                # if(saql):
+                    if(flag in learn_flag_list):
+                        if(tg_2<=len(component_record)-1):
+                            action = component_record[tg_2]
+                        tg_2 +=1
+
+                if(flag not in learn_flag_list):
+                    action = random.randint(0,2)
+                    # if(tg<=len(lazy_record)-1):
+                    #     action = lazy_record[tg]
+                    # tg +=1
+                if(flag in learn_flag_list):
+                    
+                    if(saql):
+                        if(debug):
+                            print(action,ss,saql)
+                        pass
                 
                 [next_plate,next_flag,terminate,winner] = game.step(action)
                 
@@ -100,8 +133,6 @@ class main_class():
                     for _,exp in enumerate(exp_list):
                         if(flag == winner): # 如果本方赢了，奖励计一
                             exp[2] = 1
-                        if(winner==0):
-                            exp[2] = 0.33
                     agent = self.agent_list[flag]
                     agent.store(exp_list)
 
@@ -115,8 +146,7 @@ class main_class():
             for i,ele in enumerate(result):
                 result[i]/=n_ep
             print('result',result)
-        # if(mode == 'show'):
-        #     print('winner',winner)
+            
 
 
     def __main(self):

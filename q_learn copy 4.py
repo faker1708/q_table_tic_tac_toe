@@ -51,12 +51,12 @@ class agent():
             saql = self.__q_list[perception]
             bql = saql
 
-            bql = list()
-            for i,flag in enumerate(plate):
-                if(flag>0):
-                    bql.append(-2**10)
-                else:
-                    bql.append(saql[i])
+            # bql = list()
+            # for i,flag in enumerate(plate):
+            #     if(flag>0):
+            #         bql.append(-2**10)
+            #     else:
+            #         bql.append(saql[i])
 
             action = bql.index(max(bql))
 

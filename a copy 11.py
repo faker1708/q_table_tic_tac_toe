@@ -48,16 +48,11 @@ class main_class():
 
         epl = list()
         epl.append(0)
-        epl.append(0)
-        epl.append(0)
+        epl.append(epsilon)
+        epl.append(epsilon)
 
 
-        learn_flag_list = [1,2]
-        # learn_flag_list = [1]
         # learn_flag_list = [2]
-
-        for _,flag in enumerate(learn_flag_list):
-            epl[flag] = epsilon
 
 
         result = [0,0,0]
@@ -69,6 +64,9 @@ class main_class():
 
         for i_ep in range(n_ep):
             [plate,flag] = self.game.reset()
+            # print(plate)
+            tg = 0
+            tg_2 = 0
             while(1):
                 
                 # print(plate)
@@ -78,6 +76,14 @@ class main_class():
 
 
                 action,bql = agent.take_action(ss,plate,epl[flag])
+
+                if(flag not in learn_flag_list):
+                    action = random.randint(0,8)
+                    # action = 0
+
+                # if(mode == 'show'):
+                #     if(flag==2):
+                #         print(action,plate,bql)
 
                 
                 [next_plate,next_flag,terminate,winner] = game.step(action)
@@ -100,8 +106,6 @@ class main_class():
                     for _,exp in enumerate(exp_list):
                         if(flag == winner): # 如果本方赢了，奖励计一
                             exp[2] = 1
-                        if(winner==0):
-                            exp[2] = 0.33
                     agent = self.agent_list[flag]
                     agent.store(exp_list)
 

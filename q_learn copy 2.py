@@ -31,7 +31,7 @@ class agent():
     def get_ql(self):
         return self.__q_list
 
-    def take_action(self,perception,plate,epsilon):
+    def take_action(self,perception,epsilon):
         # perception q表中，这里要输入一个自然数。用来取状态动作价值表。
 
         # explore
@@ -43,26 +43,17 @@ class agent():
         else:
             explore = 1
         
-        bql = list()
+        saql = list()
         if(explore):
             action = random.randint(0,self.__action_dimension-1)
         else:
             # exploit
             saql = self.__q_list[perception]
-            bql = saql
-
-            bql = list()
-            for i,flag in enumerate(plate):
-                if(flag>0):
-                    bql.append(-2**10)
-                else:
-                    bql.append(saql[i])
-
-            action = bql.index(max(bql))
+            action = saql.index(max(saql))
 
 
 
-        return action,bql
+        return action,saql
     
     def store(self,exp_list):
 
