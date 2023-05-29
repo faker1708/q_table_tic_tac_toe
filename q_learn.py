@@ -16,7 +16,7 @@ class agent():
             aql = list()
             for _ in range(self.__action_dimension):
                 # q = random.gauss(0,0.1)
-                q = random.uniform(0.0, 1.0)
+                # q = random.uniform(0.0, 1.0)
                 q = random.uniform(0.45, 0.55)
                 
                 # q = 0
@@ -51,6 +51,7 @@ class agent():
             saql = self.__q_list[perception]
             bql = saql
 
+            # 根据规则 回避掉一些选项。若追求更好的通用性，应当把规则删掉。
             bql = list()
             for i,flag in enumerate(plate):
                 if(flag>0):

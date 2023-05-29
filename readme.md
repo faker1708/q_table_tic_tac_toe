@@ -1,5 +1,13 @@
 
 
+win11
+python 39
+
+python run_this.py
+
+
+
+
 用q学习,q表的方法来玩井字棋.
 
 

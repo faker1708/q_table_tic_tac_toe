@@ -52,9 +52,9 @@ class main_class():
         epl.append(0)
 
 
-        learn_flag_list = [1,2]
-        # learn_flag_list = [1]
+        learn_flag_list = [1]
         # learn_flag_list = [2]
+        # learn_flag_list = [1,2]
 
         for _,flag in enumerate(learn_flag_list):
             epl[flag] = epsilon
