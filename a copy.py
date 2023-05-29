@@ -48,10 +48,6 @@ class main_class():
                 # print(plate)
                 ss = self.__encode_plate(plate)
                 agent = self.agent_list[flag]
-
-                # if(mode == 'test' or mode == 'show'):
-                if(flag ==2):
-                        epsilon = 0 # 测试模式中，2阵营随机落子，期望1的胜率为100 %
                 action = agent.take_action(ss,epsilon)
                 [next_plate,next_flag,terminate,winner] = game.step(action)
                 
