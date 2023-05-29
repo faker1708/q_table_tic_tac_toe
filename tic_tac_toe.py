@@ -51,7 +51,10 @@ class game():
         # print(self.flag)
         self.flag = 3-self.flag
 
-        return [plate,self.flag,terminate,winner]
+        next_plate = plate
+        next_flag = self.flag
+        return [next_plate,next_flag,terminate,winner]
+        # return [plate,self.flag,terminate,winner]
     
     def __main(self):
         
@@ -315,7 +318,7 @@ class game():
             
             pygame.display.flip() #更新屏幕内容
             if( self.__terminate == 1):
-                print(self.__record)
+                # print(self.__record)
                 time.sleep(2)
                 # os.system('cls')
 
